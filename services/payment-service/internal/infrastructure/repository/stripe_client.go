@@ -23,7 +23,9 @@ func NewStripeClient(config *types.PaymentConfig) domain.PaymentProcessor {
 
 func (c *stripeClient) CreatePaymentSession(ctx context.Context, amount int64, currency string, metadata map[string]string) (string, error) {
 	params := &stripe.CheckoutSessionParams{
-		Metadata: metadata,
+		SuccessURL: stripe.String(c.config.SuccessURL),
+		CancelURL:  stripe.String(c.config.CancelURL),
+		Metadata:   metadata,
 		LineItems: []*stripe.CheckoutSessionLineItemParams{
 			{
 				PriceData: &stripe.CheckoutSessionLineItemPriceDataParams{

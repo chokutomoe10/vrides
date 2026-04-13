@@ -43,8 +43,12 @@ func main() {
 		cancel()
 	}()
 
+	appURL := env.GetString("APP_URL", "http://localhost:3000")
+
 	stripeCfg := &types.PaymentConfig{
 		StripeSecretKey: env.GetString("STRIPE_SECRET_KEY", ""),
+		SuccessURL:      env.GetString("STRIPE_SUCCESS_URL", appURL+"?payment=success"),
+		CancelURL:       env.GetString("STRIPE_CANCEL_URL", appURL+"?payment=cancel"),
 	}
 
 	if stripeCfg.StripeSecretKey == "" {

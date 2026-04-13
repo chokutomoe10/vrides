@@ -98,7 +98,7 @@ func handleStripeWebhook(w http.ResponseWriter, r *http.Request, rb *messaging.R
 
 	defer r.Body.Close()
 
-	webhookKey := env.GetString("STRIPE_WEBHOOK_KEY", "whsec_rjsguhiudr023r9jwn032r882nr30923r9i2093r09u40035y78923vq58uy54t9")
+	webhookKey := env.GetString("STRIPE_WEBHOOK_KEY", "")
 	if webhookKey == "" {
 		log.Printf("Webhook key is required")
 		return
